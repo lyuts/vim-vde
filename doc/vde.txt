@@ -1,0 +1,196 @@
+*vde.txt* VIM Development Environment plugin
+
+
+
+CONTENTS                                                    *vde-contents*
+
+    1. Intro                         |vde-intro|
+    2. Prerequisites                 |vde-prerequisites|
+    3. Mappings                      |vde-mappings|
+        3.1. Global mappings         |vde-global-mappings|
+        3.2. Local mappings          |vde-local-mappings|
+    4. Commands                      |vde-commands|
+        4.1. Global commands         |vde-global-commands|
+        4.2. Local commands          |vde-local-commands|
+    5. Project file format           |vde-project-file-format|
+    6. Variables                     |vde-variables|
+        6.1. Global variables        |vde-global-variables|
+        6.2. Local variables         |vde-local-variables|
+    7. Todo                          |vde-todo|
+
+==============================================================================
+                                                                   *vde-intro*
+1. Intro ~
+
+This plugin provides some features that enable vim users to operate on a group
+of files as if it were a project. In order to get started one should go to a
+project direcotry and type 'init' (see |init-mapping|). This will register a
+project in a project file which is defined by g:vde_projectFile. See
+|vde-project-file-format|.
+
+Basic workflow:
+       $ cd /path/to/project/root
+       $ vim .
+         init
+
+==============================================================================
+                                                           *vde-prerequisites*
+2. Prerequisites ~
+
+The plugin uses ctags and cscope. FreeBSD users should have exctags installed.
+If |g:vde_useGtags| is set to 1, then gtags.vim and GNU global have to be
+installed also.
+
+==============================================================================
+                                                                *vde-mappings*
+3. Mappings ~
+
+                                                     *vde-global-mappings*
+3.1 Global mappings ~
+
+                                                         *init* *init-mapping*
+init    Does the initial setup for a project. It calls |InitProject()|
+        function. The steps it performs:
+            - Registers the project in project file pointed to by
+              |g:vde_projectFile| variable. This includes detecting of VCS and
+              setting a corresponding paramter in this file too.
+            - Creates a list of files. Does a plain "find . -type f".
+            - Runs ctags.
+            - Runs cscope.
+
+                                                       *ctags* *ctags-mapping*
+ctags   Runs tag generation. The project's file list is used for ctags and is
+        passed via -L flag.
+
+                                                      *vde-local-mappings*
+3.2 Local mappings ~
+
+==============================================================================
+                                                            *vde-commands*
+4. Commands ~
+
+                                                     *vde-global-commands*
+4.1 Global commands ~
+
+VDEInit
+Diff
+Blame
+Revisions
+                                                      *vde-local-commands*
+4.2 Local commands ~
+
+==============================================================================
+                                                     *vde-project-file-format*
+5. Project file format ~
+
+A typical project registration looks like this:
+
+ [project_name]
+ Param1=Value1
+ Param2=Value2.1,Value2.2
+ ...
+
+Currently, the supported parameters are:
+
+    Path        absolute path to the project root directory.
+    VCS         Version control system used for the project.
+    Ignore      Comma separated masks of files to ignore.
+    SkipDir     Comma separated names of directories to skip.
+    Uses        Comma separated list of projects used by the specified
+                project.  The list contains project names as they appear in
+                g:vde_projectFile or a path to a ctags file.
+
+Lines can be commented with a '#' sign at the beginnig of a line.
+
+Sample project file:
+
+[myProject]
+Path=/home/user/Projects/myProject
+VCS=git
+Uses=myLib
+
+[myLib]
+Path=/home/user/Projects/myLib
+#VCS=svn
+Uses=~/some/dir/qt47.ctags
+
+
+==============================================================================
+                                                               *vde-variables*
+6. Variables ~
+
+                                                        *vde-global-variables*
+6.1. Global variables ~
+
+
+                                                           *g:vde_projectFile*
+g:vde_projectFile   Specifies the file with description of registered
+                    projects. By default ~/.vim_projects is used, but it can
+                    easily modified to point to a custom file path by setting
+                    a corresponding value in .vimrc.
+
+                                                          *g:vde_projectIndex*
+g:vde_projectIndex  Name of the file that contains a list of project files. By
+                    default the name of tags.files is used, but can be
+                    modified in .vimrc.  |g:vde_projectIndex| determines which
+                    file should be searched in project's root directory. This
+                    setting is common for all projects.
+
+                                                                        *g:OS*
+g:OS                OS identifier. If it is not defined in .vimrc then the
+                    plugin will make an attempt to detect OS.
+
+                                                              *g:vde_useGtags*
+g:vde_useGtags      ???
+
+                                                               *g:vde_findCmd*
+g:vde_findCmd
+
+                                                              *g:vde_ctagsCmd*
+g:vde_ctagsCmd      ctags executable. Depending on OS it may be either, ctags,
+                    or exctags, or ctags.exe.
+
+                                                             *g:vde_cscopeCmd*
+g:vde_cscopeCmd     ???
+
+                                                              *g:vde_gtagsCmd*
+g:vde_gtagsCmd      gtags executable. See |g:vde_useGtags|.
+
+                                                                *g:vde_gitCmd*
+g:vde_gitCmd        Git executable. The plugin assumes that for Unix/Linux it
+                    is 'git' and for Windows it is 'git.exe'. Can be redefined
+                    in .vimrc.
+
+                                                                *g:vde_svnCmd*
+g:vde_svnCmd        Subversion executable. The plugin assumes that for
+                    Unix/Linux it is 'svn' and for Windows it is 'svn.exe'.
+                    Can be redefined in .vimrc.
+
+                                                     *g:vde_projectIgnoreList*
+g:vde_projectIgnoreList     Holds, the default comma separated list of
+                            wildcards used for ignoring files. Used for
+                            setting the initial value of 'Ignore' parameter in
+                            a project file on a new project registration
+                            (|:VDEInit|). When doing |:VDEInit| is done on an
+                            already registered project the existing 'Ignore'
+                            parameter is taken and is NOT overwritten with
+                            g:vde_projectIgnoreList.
+
+                                                    *g:vde_projectSkipDirList*
+g:vde_projectSkipDirList    Similar to |g:vde_projectSkipDirList|. Holds a
+                            default comma separated list of directories to be
+                            ignored during building a project index.
+
+                                                         *vde-local-variables*
+6.2. Local variables ~
+
+==============================================================================
+                                                                *vde-todo*
+7. Todo ~
+    + Add a function for refreshing project files list.
+    + Make Uses param work with a path to a ctags file.
+    + Add support for gtags search and retagging
+    + Add a VimSettings field to a project file. (e.g. set tw=80 for a specific
+      project, while use default tw set in vimrc for other projects)
+
+ vim:tw=80:fo=tcq2:isk=!-~,^*,^\|,^\":ts=8:ft=help:norl

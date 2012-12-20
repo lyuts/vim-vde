@@ -1,0 +1,981 @@
+
+"if has("syntax") || !exists("did_qt_cpp_syntax_init")
+    let did_qt_cpp_syntax_init = 1
+
+    execute ":source ".expand("<sfile>:h")."/c.vim"
+    """""""""
+    """ Types
+    """""""""
+    syn keyword QtType qint8 qint16 qint32 qint64
+    syn keyword QtType quint8 quint16 quint32 quint64
+
+    syn keyword QtType QAbstractAnimation
+    syn keyword QtType QAbstractAudioDeviceInfo
+    syn keyword QtType QAbstractAudioInput
+    syn keyword QtType QAbstractAudioOutput
+    syn keyword QtType QAbstractButton
+    syn keyword QtType QAbstractConcatenable
+    syn keyword QtType QAbstractEventDispatcher
+    syn keyword QtType QAbstractExtensionFactory
+    syn keyword QtType QAbstractExtensionManager
+    syn keyword QtType QAbstractFileEngine
+    syn keyword QtType QAbstractFileEngineHandler
+    syn keyword QtType QAbstractFileEngineIterator
+    syn keyword QtType QAbstractFontEngine
+    syn keyword QtType QAbstractFormBuilder
+    syn keyword QtType QAbstractGraphicsShapeItem
+    syn keyword QtType QAbstractItemDelegate
+    syn keyword QtType QAbstractItemModel
+    syn keyword QtType QAbstractItemView
+    syn keyword QtType QAbstractListModel
+    syn keyword QtType QAbstractMessageHandler
+    syn keyword QtType QAbstractNetworkCache
+    syn keyword QtType QAbstractPageSetupDialog
+    syn keyword QtType QAbstractPrintDialog
+    syn keyword QtType QAbstractProxyModel
+    syn keyword QtType QAbstractScrollArea
+    syn keyword QtType QAbstractSlider
+    syn keyword QtType QAbstractSocket
+    syn keyword QtType QAbstractSpinBox
+    syn keyword QtType QAbstractState
+    syn keyword QtType QAbstractTableModel
+    syn keyword QtType QAbstractTextDocumentLayout
+    syn keyword QtType QAbstractTransition
+    syn keyword QtType QAbstractUndoItem
+    syn keyword QtType QAbstractUriResolver
+    syn keyword QtType QAbstractVideoBuffer
+    syn keyword QtType QAbstractVideoSurface
+    syn keyword QtType QAbstractXmlNodeModel
+    syn keyword QtType QAbstractXmlReceiver
+    syn keyword QtType QAccessible
+    syn keyword QtType QAccessible2Interface
+    syn keyword QtType QAccessibleActionInterface
+    syn keyword QtType QAccessibleApplication
+    syn keyword QtType QAccessibleBridge
+    syn keyword QtType QAccessibleBridgeFactoryInterface
+    syn keyword QtType QAccessibleBridgePlugin
+    syn keyword QtType QAccessibleEditableTextInterface
+    syn keyword QtType QAccessibleEvent
+    syn keyword QtType QAccessibleFactoryInterface
+    syn keyword QtType QAccessibleImageInterface
+    syn keyword QtType QAccessibleInterface
+    syn keyword QtType QAccessibleInterfaceEx
+    syn keyword QtType QAccessibleObject
+    syn keyword QtType QAccessibleObjectEx
+    syn keyword QtType QAccessiblePlugin
+    syn keyword QtType QAccessibleSimpleEditableTextInterface
+    syn keyword QtType QAccessibleTableInterface
+    syn keyword QtType QAccessibleTextInterface
+    syn keyword QtType QAccessibleValueInterface
+    syn keyword QtType QAccessibleWidget
+    syn keyword QtType QAccessibleWidgetEx
+    syn keyword QtType QAction QActionEvent QActionGroup
+    syn keyword QtType QAnimationGroup
+    syn keyword QtType QApplication
+    syn keyword QtType QArgument
+    syn keyword QtType QAtomicInt QAtomicPointer
+    syn keyword QtType QAudio
+    syn keyword QtType QAudioDeviceInfo
+    syn keyword QtType QAudioEngineFactoryInterface
+    syn keyword QtType QAudioEnginePlugin
+    syn keyword QtType QAudioFormat
+    syn keyword QtType QAudioInput
+    syn keyword QtType QAudioOutput
+    syn keyword QtType QAuthDevice
+    syn keyword QtType QAuthenticator
+    syn keyword QtType QBasicAtomicInt
+    syn keyword QtType QBasicAtomicPointer
+    syn keyword QtType QBasicTimer
+    syn keyword QtType QBitArray
+    syn keyword QtType QBitRef
+    syn keyword QtType QBitmap
+    syn keyword QtType QBool
+    syn keyword QtType QBoxLayout
+    syn keyword QtType QBrush
+    syn keyword QtType QBrushData
+    syn keyword QtType QBuffer
+    syn keyword QtType QButtonGroup
+    syn keyword QtType QByteArray QByteArrayMatcher QByteRef
+    syn keyword QtType QCDEStyle
+    syn keyword QtType QCOORD
+    syn keyword QtType QCache
+    syn keyword QtType QCalendarWidget
+    syn keyword QtType QChar QCharRef
+    syn keyword QtType QCheckBox
+    syn keyword QtType QChildEvent
+    syn keyword QtType QCleanlooksStyle
+    syn keyword QtType QClipboard QClipboardEvent
+    syn keyword QtType QCloseEvent
+    syn keyword QtType QColor
+    syn keyword QtType QColorDialog
+    syn keyword QtType QColorGroup
+    syn keyword QtType QColormap
+    syn keyword QtType QColumnView
+    syn keyword QtType QComboBox
+    syn keyword QtType QCommandLinkButton
+    syn keyword QtType QCommonStyle
+    syn keyword QtType QCompleter
+    syn keyword QtType QConcatenable
+    syn keyword QtType QConicalGradient
+    syn keyword QtType QConstString
+    syn keyword QtType QContextMenuEvent
+    syn keyword QtType QContiguousCache
+    syn keyword QtType QContiguousCacheData
+    syn keyword QtType QContiguousCacheTypedData
+    syn keyword QtType QCopChannel
+    syn keyword QtType QCoreApplication
+    syn keyword QtType QCryptographicHash
+    syn keyword QtType QCursor
+    syn keyword QtType QCursorShape
+    syn keyword QtType QCustomEvent
+    syn keyword QtType QDB2Driver QDB2Result
+    syn keyword QtType QDBusAbstractAdaptor
+    syn keyword QtType QDBusAbstractInterface
+    syn keyword QtType QDBusAbstractInterfaceBase
+    syn keyword QtType QDBusArgument
+    syn keyword QtType QDBusConnection
+    syn keyword QtType QDBusConnectionInterface
+    syn keyword QtType QDBusContext
+    syn keyword QtType QDBusError
+    syn keyword QtType QDBusInterface
+    syn keyword QtType QDBusMessage
+    syn keyword QtType QDBusMetaType
+    syn keyword QtType QDBusObjectPath
+    syn keyword QtType QDBusPendingCall
+    syn keyword QtType QDBusPendingCallWatcher
+    syn keyword QtType QDBusPendingReply
+    syn keyword QtType QDBusPendingReplyData
+    syn keyword QtType QDBusReply
+    syn keyword QtType QDBusServer
+    syn keyword QtType QDBusServiceWatcher
+    syn keyword QtType QDBusSignature
+    syn keyword QtType QDBusVariant
+    syn keyword QtType QDataStream
+    syn keyword QtType QDataWidgetMapper
+    syn keyword QtType QDate QDateEdit QDateTime QDateTimeEdit
+    syn keyword QtType QDebug
+    syn keyword QtType QDeclarativeAttachedPropertiesFunc
+    syn keyword QtType QDeclarativeComponent
+    syn keyword QtType QDeclarativeContext
+    syn keyword QtType QDeclarativeEngine
+    syn keyword QtType QDeclarativeError
+    syn keyword QtType QDeclarativeExpression
+    syn keyword QtType QDeclarativeExtensionInterface
+    syn keyword QtType QDeclarativeExtensionPlugin
+    syn keyword QtType QDeclarativeImageProvider
+    syn keyword QtType QDeclarativeInfo
+    syn keyword QtType QDeclarativeItem
+    syn keyword QtType QDeclarativeListProperty
+    syn keyword QtType QDeclarativeListReference
+    syn keyword QtType QDeclarativeNetworkAccessManagerFactory
+    syn keyword QtType QDeclarativeParserStatus
+    syn keyword QtType QDeclarativeProperties
+    syn keyword QtType QDeclarativeProperty
+    syn keyword QtType QDeclarativePropertyMap
+    syn keyword QtType QDeclarativePropertyValueInterceptor
+    syn keyword QtType QDeclarativePropertyValueSource
+    syn keyword QtType QDeclarativeScriptString
+    syn keyword QtType QDeclarativeTypeInfo
+    syn keyword QtType QDeclarativeView
+    syn keyword QtType QDecoration
+    syn keyword QtType QDecorationAction
+    syn keyword QtType QDecorationDefault
+    syn keyword QtType QDecorationFactory
+    syn keyword QtType QDecorationFactoryInterface
+    syn keyword QtType QDecorationPlugin
+    syn keyword QtType QDecorationStyled
+    syn keyword QtType QDecorationWindows
+    syn keyword QtType QDesignerActionEditorInterface
+    syn keyword QtType QDesignerBrushManagerInterface
+    syn keyword QtType QDesignerComponents
+    syn keyword QtType QDesignerContainerExtension
+    syn keyword QtType QDesignerCustomWidgetCollectionInterface
+    syn keyword QtType QDesignerCustomWidgetInterface
+    syn keyword QtType QDesignerDnDItemInterface
+    syn keyword QtType QDesignerDynamicPropertySheetExtension
+    syn keyword QtType QDesignerExportWidget
+    syn keyword QtType QDesignerExtraInfoExtension
+    syn keyword QtType QDesignerFormEditorInterface
+    syn keyword QtType QDesignerFormEditorPluginInterface
+    syn keyword QtType QDesignerFormWindowCursorInterface
+    syn keyword QtType QDesignerFormWindowInterface
+    syn keyword QtType QDesignerFormWindowManagerInterface
+    syn keyword QtType QDesignerFormWindowToolInterface
+    syn keyword QtType QDesignerIconCacheInterface
+    syn keyword QtType QDesignerIntegrationInterface
+    syn keyword QtType QDesignerLanguageExtension
+    syn keyword QtType QDesignerLayoutDecorationExtension
+    syn keyword QtType QDesignerMemberSheetExtension
+    syn keyword QtType QDesignerMetaDataBaseInterface
+    syn keyword QtType QDesignerMetaDataBaseItemInterface
+    syn keyword QtType QDesignerObjectInspectorInterface
+    syn keyword QtType QDesignerPromotionInterface
+    syn keyword QtType QDesignerPropertyEditorInterface
+    syn keyword QtType QDesignerPropertySheetExtension
+    syn keyword QtType QDesignerResourceBrowserInterface
+    syn keyword QtType QDesignerTaskMenuExtension
+    syn keyword QtType QDesignerWidgetBoxInterface
+    syn keyword QtType QDesignerWidgetDataBaseInterface
+    syn keyword QtType QDesignerWidgetDataBaseItemInterface
+    syn keyword QtType QDesignerWidgetFactoryInterface
+    syn keyword QtType QDesktopServices
+    syn keyword QtType QDesktopWidget
+    syn keyword QtType QDial
+    syn keyword QtType QDialog
+    syn keyword QtType QDialogButtonBox
+    syn keyword QtType QDir
+    syn keyword QtType QDirIterator
+    syn keyword QtType QDirModel
+    syn keyword QtType QDirectPainter
+    syn keyword QtType QDockWidget
+    syn keyword QtType QDomAttr
+    syn keyword QtType QDomCDATASection
+    syn keyword QtType QDomCharacterData
+    syn keyword QtType QDomComment
+    syn keyword QtType QDomDocument
+    syn keyword QtType QDomDocumentFragment
+    syn keyword QtType QDomDocumentType
+    syn keyword QtType QDomElement
+    syn keyword QtType QDomEntity
+    syn keyword QtType QDomEntityReference
+    syn keyword QtType QDomImplementation
+    syn keyword QtType QDomNamedNodeMap
+    syn keyword QtType QDomNode
+    syn keyword QtType QDomNodeList
+    syn keyword QtType QDomNotation
+    syn keyword QtType QDomProcessingInstruction
+    syn keyword QtType QDomText
+    syn keyword QtType QDoubleSpinBox
+    syn keyword QtType QDoubleValidator
+    syn keyword QtType QDrag
+    syn keyword QtType QDragEnterEvent
+    syn keyword QtType QDragLeaveEvent
+    syn keyword QtType QDragMoveEvent
+    syn keyword QtType QDragResponseEvent
+    syn keyword QtType QDropEvent
+    syn keyword QtType QDynamicPropertyChangeEvent
+    syn keyword QtType QEasingCurve
+    syn keyword QtType QElapsedTimer
+    syn keyword QtType QErrorMessage
+    syn keyword QtType QEvent
+    syn keyword QtType QEventLoop
+    syn keyword QtType QEventSizeOfChecker
+    syn keyword QtType QEventTransition
+    syn keyword QtType QExplicitlySharedDataPointer
+    syn keyword QtType QExtensionFactory
+    syn keyword QtType QExtensionManager
+    syn keyword QtType QFSFileEngine
+    syn keyword QtType QFactoryInterface
+    syn keyword QtType QFile
+    syn keyword QtType QFileDialog
+    syn keyword QtType QFileIconProvider
+    syn keyword QtType QFileInfo
+    syn keyword QtType QFileInfoList
+    syn keyword QtType QFileInfoListIterator
+    syn keyword QtType QFileOpenEvent
+    syn keyword QtType QFileSystemModel
+    syn keyword QtType QFileSystemWatcher
+    syn keyword QtType QFinalState
+    syn keyword QtType QFlag
+    syn keyword QtType QFlags
+    syn keyword QtType QFocusEvent
+    syn keyword QtType QFocusFrame
+    syn keyword QtType QFont
+    syn keyword QtType QFontComboBox
+    syn keyword QtType QFontDatabase
+    syn keyword QtType QFontDialog
+    syn keyword QtType QFontEngineFactoryInterface
+    syn keyword QtType QFontEngineInfo
+    syn keyword QtType QFontEnginePlugin
+    syn keyword QtType QFontInfo
+    syn keyword QtType QFontMetrics
+    syn keyword QtType QFontMetricsF
+    syn keyword QtType QForeachContainer
+    syn keyword QtType QForeachContainerBase
+    syn keyword QtType QFormBuilder
+    syn keyword QtType QFormLayout
+    syn keyword QtType QFrame
+    syn keyword QtType QFtp
+    syn keyword QtType QFuture
+    syn keyword QtType QFutureInterface
+    syn keyword QtType QFutureInterfaceBase
+    syn keyword QtType QFutureIterator
+    syn keyword QtType QFutureSynchronizer
+    syn keyword QtType QFutureWatcher
+    syn keyword QtType QFutureWatcherBase
+    syn keyword QtType QGLBuffer
+    syn keyword QtType QGLColormap
+    syn keyword QtType QGLContext
+    syn keyword QtType QGLFormat
+    syn keyword QtType QGLFramebufferObject
+    syn keyword QtType QGLFramebufferObjectFormat
+    syn keyword QtType QGLPixelBuffer
+    syn keyword QtType QGLScreen
+    syn keyword QtType QGLScreenSurfaceFunctions
+    syn keyword QtType QGLShader
+    syn keyword QtType QGLShaderProgram
+    syn keyword QtType QGLWidget
+    syn keyword QtType QGenericArgument
+    syn keyword QtType QGenericMatrix
+    syn keyword QtType QGenericReturnArgument
+    syn keyword QtType QGesture
+    syn keyword QtType QGestureEvent
+    syn keyword QtType QGestureRecognizer
+    syn keyword QtType QGlobalStatic
+    syn keyword QtType QGlobalStaticDeleter
+    syn keyword QtType QGradient
+    syn keyword QtType QGradientStop
+    syn keyword QtType QGradientStops
+    syn keyword QtType QGraphicsAnchor
+    syn keyword QtType QGraphicsAnchorLayout
+    syn keyword QtType QGraphicsBlurEffect
+    syn keyword QtType QGraphicsColorizeEffect
+    syn keyword QtType QGraphicsDropShadowEffect
+    syn keyword QtType QGraphicsEffect
+    syn keyword QtType QGraphicsEllipseItem
+    syn keyword QtType QGraphicsGridLayout
+    syn keyword QtType QGraphicsItem
+    syn keyword QtType QGraphicsItemAnimation
+    syn keyword QtType QGraphicsItemGroup
+    syn keyword QtType QGraphicsLayout
+    syn keyword QtType QGraphicsLayoutItem
+    syn keyword QtType QGraphicsLineItem
+    syn keyword QtType QGraphicsLinearLayout
+    syn keyword QtType QGraphicsObject
+    syn keyword QtType QGraphicsOpacityEffect
+    syn keyword QtType QGraphicsPathItem
+    syn keyword QtType QGraphicsPixmapItem
+    syn keyword QtType QGraphicsPolygonItem
+    syn keyword QtType QGraphicsProxyWidget
+    syn keyword QtType QGraphicsRectItem
+    syn keyword QtType QGraphicsRotation
+    syn keyword QtType QGraphicsScale
+    syn keyword QtType QGraphicsScene
+    syn keyword QtType QGraphicsSceneContextMenuEvent
+    syn keyword QtType QGraphicsSceneDragDropEvent
+    syn keyword QtType QGraphicsSceneEvent
+    syn keyword QtType QGraphicsSceneHelpEvent
+    syn keyword QtType QGraphicsSceneHoverEvent
+    syn keyword QtType QGraphicsSceneMouseEvent
+    syn keyword QtType QGraphicsSceneMoveEvent
+    syn keyword QtType QGraphicsSceneResizeEvent
+    syn keyword QtType QGraphicsSceneWheelEvent
+    syn keyword QtType QGraphicsSimpleTextItem
+    syn keyword QtType QGraphicsSvgItem
+    syn keyword QtType QGraphicsTextItem
+    syn keyword QtType QGraphicsTransform
+    syn keyword QtType QGraphicsView
+    syn keyword QtType QGraphicsWebView
+    syn keyword QtType QGraphicsWidget
+    syn keyword QtType QGridLayout
+    syn keyword QtType QGroupBox
+    syn keyword QtType QGtkStyle
+    syn keyword QtType QHBoxLayout
+    syn keyword QtType QHash
+    syn keyword QtType QHashData
+    syn keyword QtType QHashDummyNode
+    syn keyword QtType QHashDummyValue
+    syn keyword QtType QHashIterator
+    syn keyword QtType QHashNode
+    syn keyword QtType QHeaderView
+    syn keyword QtType QHelpContentItem
+    syn keyword QtType QHelpContentModel
+    syn keyword QtType QHelpContentWidget
+    syn keyword QtType QHelpEngine
+    syn keyword QtType QHelpEngineCore
+    syn keyword QtType QHelpEvent
+    syn keyword QtType QHelpGlobal
+    syn keyword QtType QHelpIndexModel
+    syn keyword QtType QHelpIndexWidget
+    syn keyword QtType QHelpSearchEngine
+    syn keyword QtType QHelpSearchQuery
+    syn keyword QtType QHelpSearchQueryWidget
+    syn keyword QtType QHelpSearchResultWidget
+    syn keyword QtType QHideEvent
+    syn keyword QtType QHistoryState
+    syn keyword QtType QHostAddress
+    syn keyword QtType QHostInfo
+    syn keyword QtType QHoverEvent
+    syn keyword QtType QHttp
+    syn keyword QtType QHttpHeader
+    syn keyword QtType QHttpRequestHeader
+    syn keyword QtType QHttpResponseHeader
+    syn keyword QtType QIBaseDriver QIBaseResult
+    syn keyword QtType QIODevice
+    syn keyword QtType QIPv6Address
+    syn keyword QtType QIcon
+    syn keyword QtType QIconDragEvent
+    syn keyword QtType QIconEngine
+    syn keyword QtType QIconEngineFactoryInterface
+    syn keyword QtType QIconEngineFactoryInterfaceV2
+    syn keyword QtType QIconEnginePlugin
+    syn keyword QtType QIconEnginePluginV2
+    syn keyword QtType QIconEngineV2
+    syn keyword QtType QIconSet
+    syn keyword QtType QImage
+    syn keyword QtType QImageIOHandler
+    syn keyword QtType QImageIOHandlerFactoryInterface
+    syn keyword QtType QImageIOPlugin
+    syn keyword QtType QImageReader
+    syn keyword QtType QImageTextKeyLang
+    syn keyword QtType QImageWriter
+    syn keyword QtType QIncompatibleFlag
+    syn keyword QtType QInputContext
+    syn keyword QtType QInputContextFactory
+    syn keyword QtType QInputContextFactoryInterface
+    syn keyword QtType QInputContextPlugin
+    syn keyword QtType QInputDialog
+    syn keyword QtType QInputEvent
+    syn keyword QtType QInputMethodEvent
+    syn keyword QtType QIntValidator
+    syn keyword QtType QIntegerForSize
+    syn keyword QtType QInternal
+    syn keyword QtType QItemDelegate
+    syn keyword QtType QItemEditorCreator
+    syn keyword QtType QItemEditorCreatorBase
+    syn keyword QtType QItemEditorFactory
+    syn keyword QtType QItemSelection
+    syn keyword QtType QItemSelectionModel
+    syn keyword QtType QItemSelectionRange
+    syn keyword QtType QKbdDriverFactory
+    syn keyword QtType QKbdDriverPlugin
+    syn keyword QtType QKeyEvent
+    syn keyword QtType QKeyEventTransition
+    syn keyword QtType QKeySequence
+    syn keyword QtType QLCDNumber
+    syn keyword QtType QLabel
+    syn keyword QtType QLatin1Char
+    syn keyword QtType QLatin1Literal
+    syn keyword QtType QLatin1String
+    syn keyword QtType QLayout
+    syn keyword QtType QLayoutItem
+    syn keyword QtType QLayoutIterator
+    syn keyword QtType QLibrary
+    syn keyword QtType QLibraryInfo
+    syn keyword QtType QLine QLineF
+    syn keyword QtType QLineEdit
+    syn keyword QtType QLinearGradient
+    syn keyword QtType QLinkedList
+    syn keyword QtType QLinkedListData
+    syn keyword QtType QLinkedListIterator
+    syn keyword QtType QLinkedListNode
+    syn keyword QtType QLinuxFbScreen
+    syn keyword QtType QLinuxFb_Shared
+    syn keyword QtType QList
+    syn keyword QtType QListData
+    syn keyword QtType QListIterator
+    syn keyword QtType QListView
+    syn keyword QtType QListWidget
+    syn keyword QtType QListWidgetItem
+    syn keyword QtType QLocalServer
+    syn keyword QtType QLocalSocket
+    syn keyword QtType QLocale
+    syn keyword QtType QMYSQLDriver QMYSQLResult
+    syn keyword QtType QMacCocoaViewContainer
+    syn keyword QtType QMacCompatGLenum
+    syn keyword QtType QMacCompatGLint
+    syn keyword QtType QMacCompatGLuint
+    syn keyword QtType QMacGLCompatTypes
+    syn keyword QtType QMacMime
+    syn keyword QtType QMacNativeWidget
+    syn keyword QtType QMacPasteboardMime
+    syn keyword QtType QMacStyle
+    syn keyword QtType QMainWindow
+    syn keyword QtType QMap
+    syn keyword QtType QMapData
+    syn keyword QtType QMapIterator
+    syn keyword QtType QMapNode
+    syn keyword QtType QMapPayloadNode
+    syn keyword QtType QMargins
+    syn keyword QtType QMatrix QMatrix2x2 QMatrix2x3 QMatrix2x4 QMatrix3x2 QMatrix3x3 QMatrix3x4 QMatrix4x2 QMatrix4x3 QMatrix4x4
+    syn keyword QtType QMdiArea
+    syn keyword QtType QMdiSubWindow
+    syn keyword QtType QMenu
+    syn keyword QtType QMenuBar
+    syn keyword QtType QMenuItem
+    syn keyword QtType QMenubarUpdatedEvent
+    syn keyword QtType QMessageBox
+    syn keyword QtType QMetaClassInfo
+    syn keyword QtType QMetaEnum
+    syn keyword QtType QMetaMethod
+    syn keyword QtType QMetaObject
+    syn keyword QtType QMetaObjectAccessor
+    syn keyword QtType QMetaObjectExtraData
+    syn keyword QtType QMetaProperty
+    syn keyword QtType QMetaType
+    syn keyword QtType QMetaTypeId
+    syn keyword QtType QMetaTypeId2
+    syn keyword QtType QMimeData
+    syn keyword QtType QMimeSource
+    syn keyword QtType QModelIndex QModelIndexList
+    syn keyword QtType QMotifStyle
+    syn keyword QtType QMouseDriverFactory QMouseDriverPlugin
+    syn keyword QtType QMouseEvent QMouseEventTransition
+    syn keyword QtType QMoveEvent
+    syn keyword QtType QMovie
+    syn keyword QtType QMultiHash
+    syn keyword QtType QMultiMap
+    syn keyword QtType QMutableFutureIterator
+    syn keyword QtType QMutableHashIterator
+    syn keyword QtType QMutableLinkedListIterator
+    syn keyword QtType QMutableListIterator
+    syn keyword QtType QMutableMapIterator
+    syn keyword QtType QMutableSetIterator
+    syn keyword QtType QMutableStringListIterator
+    syn keyword QtType QMutableVectorIterator
+    syn keyword QtType QMutex QMutexLocker
+    syn keyword QtType QNetworkAccessManager
+    syn keyword QtType QNetworkAddressEntry
+    syn keyword QtType QNetworkCacheMetaData
+    syn keyword QtType QNetworkConfiguration
+    syn keyword QtType QNetworkConfigurationManager
+    syn keyword QtType QNetworkCookie
+    syn keyword QtType QNetworkCookieJar
+    syn keyword QtType QNetworkDiskCache
+    syn keyword QtType QNetworkInterface
+    syn keyword QtType QNetworkProxy
+    syn keyword QtType QNetworkProxyFactory
+    syn keyword QtType QNetworkProxyQuery
+    syn keyword QtType QNetworkReply
+    syn keyword QtType QNetworkRequest
+    syn keyword QtType QNetworkSession
+    syn keyword QtType QNoDebug
+    syn keyword QtType QNoImplicitBoolCast
+    syn keyword QtType QOCIDriver QOCIResult
+    syn keyword QtType QODBCDriver QODBCResult
+    syn keyword QtType QObject
+    syn keyword QtType QObjectCleanupHandler
+    syn keyword QtType QObjectData
+    syn keyword QtType QObjectList
+    syn keyword QtType QObjectUserData
+    syn keyword QtType QPSQLDriver QPSQLResult
+    syn keyword QtType QPageSetupDialog
+    syn keyword QtType QPaintDevice
+    syn keyword QtType QPaintEngine
+    syn keyword QtType QPaintEngineState
+    syn keyword QtType QPaintEvent
+    syn keyword QtType QPainter
+    syn keyword QtType QPainterPath
+    syn keyword QtType QPainterPathPrivate
+    syn keyword QtType QPainterPathStroker
+    syn keyword QtType QPair
+    syn keyword QtType QPalette
+    syn keyword QtType QPanGesture
+    syn keyword QtType QParallelAnimationGroup
+    syn keyword QtType QPauseAnimation
+    syn keyword QtType QPen
+    syn keyword QtType QPersistentModelIndex
+    syn keyword QtType QPicture
+    syn keyword QtType QPictureFormatInterface
+    syn keyword QtType QPictureFormatPlugin
+    syn keyword QtType QPictureIO
+    syn keyword QtType QPinchGesture
+    syn keyword QtType QPixmap QPixmapCache
+    syn keyword QtType QPlainTextDocumentLayout
+    syn keyword QtType QPlainTextEdit
+    syn keyword QtType QPlastiqueStyle
+    syn keyword QtType QPluginLoader
+    syn keyword QtType QPoint QPointF
+    syn keyword QtType QPointer
+    syn keyword QtType QPolygon QPolygonF
+    syn keyword QtType QPoolEntry
+    syn keyword QtType QPrintDialog QPrintEngine
+    syn keyword QtType QPrintPreviewDialog QPrintPreviewWidget
+    syn keyword QtType QPrinter QPrinterInfo
+    syn keyword QtType QProcess
+    syn keyword QtType QProcessEnvironment
+    syn keyword QtType QProgressBar
+    syn keyword QtType QProgressDialog
+    syn keyword QtType QPropertyAnimation
+    syn keyword QtType QProxyModel
+    syn keyword QtType QProxyScreen
+    syn keyword QtType QProxyScreenCursor
+    syn keyword QtType QProxyStyle
+    syn keyword QtType QPushButton
+    syn keyword QtType QQnxMouseHandler
+    syn keyword QtType QQnxScreen
+    syn keyword QtType QQuaternion
+    syn keyword QtType QQueue
+    syn keyword QtType QRadialGradient
+    syn keyword QtType QRadioButton
+    syn keyword QtType QReadLocker
+    syn keyword QtType QReadWriteLock
+    syn keyword QtType QRect QRectF
+    syn keyword QtType QRegExp QRegExpValidator
+    syn keyword QtType QRegion
+    syn keyword QtType QResizeEvent
+    syn keyword QtType QResource
+    syn keyword QtType QReturnArgument
+    syn keyword QtType QRgb
+    syn keyword QtType QRubberBand
+    syn keyword QtType QRunnable
+    syn keyword QtType QS60MainAppUi QS60MainAppUiBase
+    syn keyword QtType QS60MainApplication QS60MainApplicationBase
+    syn keyword QtType QS60MainDocument QS60MainDocumentBase
+    syn keyword QtType QS60StubAknAppUi QS60StubAknAppUiBase
+    syn keyword QtType QS60StubMAknTouchPaneObserver
+    syn keyword QtType QS60StubMEikStatusPaneObserver
+    syn keyword QtType QS60Style
+    syn keyword QtType QSQLite2Driver QSQLite2Result QSQLiteDriver QSQLiteResult
+    syn keyword QtType QScopedArrayPointer
+    syn keyword QtType QScopedPointer
+    syn keyword QtType QScopedPointerArrayDeleter
+    syn keyword QtType QScopedPointerDeleter
+    syn keyword QtType QScopedPointerPodDeleter
+    syn keyword QtType QScreen
+    syn keyword QtType QScreenCursor
+    syn keyword QtType QScreenDriverFactory
+    syn keyword QtType QScreenDriverFactoryInterface
+    syn keyword QtType QScreenDriverPlugin
+    syn keyword QtType QScriptClass
+    syn keyword QtType QScriptClassPropertyIterator
+    syn keyword QtType QScriptContext
+    syn keyword QtType QScriptContextInfo
+    syn keyword QtType QScriptContextInfoList
+    syn keyword QtType QScriptEngine
+    syn keyword QtType QScriptEngineAgent
+    syn keyword QtType QScriptEngineDebugger
+    syn keyword QtType QScriptExtensionInterface
+    syn keyword QtType QScriptExtensionPlugin
+    syn keyword QtType QScriptProgram
+    syn keyword QtType QScriptString
+    syn keyword QtType QScriptSyntaxCheckResult
+    syn keyword QtType QScriptValue
+    syn keyword QtType QScriptValueIterator
+    syn keyword QtType QScriptValueList
+    syn keyword QtType QScriptable
+    syn keyword QtType QScrollArea
+    syn keyword QtType QScrollBar
+    syn keyword QtType QSemaphore
+    syn keyword QtType QSequentialAnimationGroup
+    syn keyword QtType QSessionManager
+    syn keyword QtType QSet
+    syn keyword QtType QSetIterator
+    syn keyword QtType QSettings
+    syn keyword QtType QSharedData
+    syn keyword QtType QSharedDataPointer
+    syn keyword QtType QSharedMemory
+    syn keyword QtType QSharedPointer
+    syn keyword QtType QShortcut
+    syn keyword QtType QShortcutEvent
+    syn keyword QtType QShowEvent
+    syn keyword QtType QSignalMapper
+    syn keyword QtType QSignalSpy
+    syn keyword QtType QSignalTransition
+    syn keyword QtType QSimpleXmlNodeModel
+    syn keyword QtType QSize
+    syn keyword QtType QSizeF
+    syn keyword QtType QSizeGrip
+    syn keyword QtType QSizePolicy
+    syn keyword QtType QSlider
+    syn keyword QtType QSocketNotifier
+    syn keyword QtType QSortFilterProxyModel
+    syn keyword QtType QSound
+    syn keyword QtType QSourceLocation
+    syn keyword QtType QSpacerItem
+    syn keyword QtType QSpinBox
+    syn keyword QtType QSplashScreen
+    syn keyword QtType QSplitter QSplitterHandle
+    syn keyword QtType QSpontaneKeyEvent
+    syn keyword QtType QSqlDatabase
+    syn keyword QtType QSqlDriver QSqlDriverCreator QSqlDriverCreatorBase QSqlDriverFactoryInterface QSqlDriverPlugin
+    syn keyword QtType QSqlError
+    syn keyword QtType QSqlField
+    syn keyword QtType QSqlIndex
+    syn keyword QtType QSqlQuery
+    syn keyword QtType QSqlQueryModel
+    syn keyword QtType QSqlRecord
+    syn keyword QtType QSqlRelation
+    syn keyword QtType QSqlRelationalDelegate
+    syn keyword QtType QSqlRelationalTableModel
+    syn keyword QtType QSqlResult
+    syn keyword QtType QSqlTableModel
+    syn keyword QtType QSsl
+    syn keyword QtType QSslCertificate
+    syn keyword QtType QSslCipher
+    syn keyword QtType QSslConfiguration
+    syn keyword QtType QSslError
+    syn keyword QtType QSslKey
+    syn keyword QtType QSslSocket
+    syn keyword QtType QStack
+    syn keyword QtType QStackedLayout QStackedWidget
+    syn keyword QtType QStandardItem QStandardItemEditorCreator QStandardItemModel
+    syn keyword QtType QState QStateMachine
+    syn keyword QtType QStaticText
+    syn keyword QtType QStatusBar
+    syn keyword QtType QStatusTipEvent
+    syn keyword QtType QStdWString
+    syn keyword QtType QString
+    syn keyword QtType QStringBuilder
+    syn keyword QtType QStringList
+    syn keyword QtType QStringListIterator
+    syn keyword QtType QStringListModel
+    syn keyword QtType QStringMatcher
+    syn keyword QtType QStringRef
+    syn keyword QtType QStyle
+    syn keyword QtType QStyleFactory QStyleFactoryInterface
+    syn keyword QtType QStyleHintReturn QStyleHintReturnMask QStyleHintReturnVariant
+    syn keyword QtType QStyleOption
+    syn keyword QtType QStyleOptionButton
+    syn keyword QtType QStyleOptionComboBox
+    syn keyword QtType QStyleOptionComplex
+    syn keyword QtType QStyleOptionDockWidget QStyleOptionDockWidgetV2
+    syn keyword QtType QStyleOptionFocusRect
+    syn keyword QtType QStyleOptionFrame QStyleOptionFrameV2 QStyleOptionFrameV3
+    syn keyword QtType QStyleOptionGraphicsItem
+    syn keyword QtType QStyleOptionGroupBox
+    syn keyword QtType QStyleOptionHeader
+    syn keyword QtType QStyleOptionMenuItem
+    syn keyword QtType QStyleOptionProgressBar
+    syn keyword QtType QStyleOptionProgressBarV2
+    syn keyword QtType QStyleOptionQ3DockWindow
+    syn keyword QtType QStyleOptionQ3ListView
+    syn keyword QtType QStyleOptionQ3ListViewItem
+    syn keyword QtType QStyleOptionRubberBand
+    syn keyword QtType QStyleOptionSizeGrip
+    syn keyword QtType QStyleOptionSlider
+    syn keyword QtType QStyleOptionSpinBox
+    syn keyword QtType QStyleOptionTab QStyleOptionTabV2 QStyleOptionTabV3
+    syn keyword QtType QStyleOptionTabBarBase QStyleOptionTabBarBaseV2
+    syn keyword QtType QStyleOptionTabWidgetFrame QStyleOptionTabWidgetFrameV2
+    syn keyword QtType QStyleOptionTitleBar
+    syn keyword QtType QStyleOptionToolBar
+    syn keyword QtType QStyleOptionToolBox QStyleOptionToolBoxV2
+    syn keyword QtType QStyleOptionToolButton
+    syn keyword QtType QStyleOptionViewItem QStyleOptionViewItemV2 QStyleOptionViewItemV3 QStyleOptionViewItemV4
+    syn keyword QtType QStylePainter
+    syn keyword QtType QStylePlugin
+    syn keyword QtType QStyledItemDelegate
+    syn keyword QtType QSvgGenerator QSvgRenderer QSvgWidget
+    syn keyword QtType QSwipeGesture
+    syn keyword QtType QSymbianEvent
+    syn keyword QtType QSyntaxHighlighter
+    syn keyword QtType QSysInfo
+    syn keyword QtType QSystemLocale QSystemSemaphore QSystemTrayIcon
+    syn keyword QtType QTDSDriver QTDSResult
+    syn keyword QtType QTS
+    syn keyword QtType QTabBar
+    syn keyword QtType QTabWidget
+    syn keyword QtType QTableView
+    syn keyword QtType QTableWidget
+    syn keyword QtType QTableWidgetItem
+    syn keyword QtType QTableWidgetSelectionRange
+    syn keyword QtType QTabletEvent
+    syn keyword QtType QTapAndHoldGesture
+    syn keyword QtType QTapGesture
+    syn keyword QtType QTcpServer
+    syn keyword QtType QTcpSocket
+    syn keyword QtType QTemporaryFile
+    syn keyword QtType QTest
+    syn keyword QtType QTestAccessibility
+    syn keyword QtType QTestAccessibilityEvent
+    syn keyword QtType QTestBasicStreamer
+    syn keyword QtType QTestCoreElement
+    syn keyword QtType QTestCoreList
+    syn keyword QtType QTestData
+    syn keyword QtType QTestDelayEvent
+    syn keyword QtType QTestElement
+    syn keyword QtType QTestElementAttribute
+    syn keyword QtType QTestEvent
+    syn keyword QtType QTestEventList
+    syn keyword QtType QTestEventLoop
+    syn keyword QtType QTestFileLogger
+    syn keyword QtType QTestKeyClicksEvent
+    syn keyword QtType QTestKeyEvent
+    syn keyword QtType QTestLightXmlStreamer
+    syn keyword QtType QTestMouseEvent
+    syn keyword QtType QTestXmlStreamer
+    syn keyword QtType QTestXunitStreamer
+    syn keyword QtType QTextBlock
+    syn keyword QtType QTextBlockFormat
+    syn keyword QtType QTextBlockGroup
+    syn keyword QtType QTextBlockUserData
+    syn keyword QtType QTextBoundaryFinder
+    syn keyword QtType QTextBrowser
+    syn keyword QtType QTextCharFormat
+    syn keyword QtType QTextCodec QTextCodecFactoryInterface QTextCodecPlugin
+    syn keyword QtType QTextCursor
+    syn keyword QtType QTextDecoder
+    syn keyword QtType QTextDocument
+    syn keyword QtType QTextDocumentFragment
+    syn keyword QtType QTextDocumentWriter
+    syn keyword QtType QTextEdit
+    syn keyword QtType QTextEncoder
+    syn keyword QtType QTextFormat
+    syn keyword QtType QTextFragment
+    syn keyword QtType QTextFrame QTextFrameFormat QTextFrameLayoutData
+    syn keyword QtType QTextIStream
+    syn keyword QtType QTextImageFormat
+    syn keyword QtType QTextInlineObject
+    syn keyword QtType QTextItem
+    syn keyword QtType QTextLayout
+    syn keyword QtType QTextLength
+    syn keyword QtType QTextLine
+    syn keyword QtType QTextList QTextListFormat
+    syn keyword QtType QTextOStream
+    syn keyword QtType QTextObject QTextObjectInterface
+    syn keyword QtType QTextOption
+    syn keyword QtType QTextStream QTextStreamFunction QTextStreamManipulator
+    syn keyword QtType QTextTable QTextTableCell QTextTableCellFormat QTextTableFormat
+    syn keyword QtType QThread QThreadPool QThreadStorage QThreadStorageData
+    syn keyword QtType QTileRules
+    syn keyword QtType QTime QTimeEdit QTimeLine
+    syn keyword QtType QTimer QTimerEvent
+    syn keyword QtType QToolBar
+    syn keyword QtType QToolBarChangeEvent
+    syn keyword QtType QToolBox
+    syn keyword QtType QToolButton
+    syn keyword QtType QToolTip
+    syn keyword QtType QTouchEvent
+    syn keyword QtType QTransform
+    syn keyword QtType QTransformedScreen
+    syn keyword QtType QTranslator
+    syn keyword QtType QTransportAuth
+    syn keyword QtType QTreeView
+    syn keyword QtType QTreeWidget
+    syn keyword QtType QTreeWidgetItem
+    syn keyword QtType QTreeWidgetItemIterator
+    syn keyword QtType QTypeInfo
+    syn keyword QtType QUdpSocket
+    syn keyword QtType QUiLoader
+    syn keyword QtType QUndoCommand QUndoGroup QUndoStack QUndoView
+    syn keyword QtType QUnixPrintWidget
+    syn keyword QtType QUpdateLaterEvent
+    syn keyword QtType QUrl QUrlInfo
+    syn keyword QtType QUuid
+    syn keyword QtType QVBoxLayout
+    syn keyword QtType QVFbHeader
+    syn keyword QtType QVFbKeyData
+    syn keyword QtType QVFbKeyboardHandler
+    syn keyword QtType QVFbMouseHandler
+    syn keyword QtType QVFbScreen
+    syn keyword QtType QValidator
+    syn keyword QtType QVarLengthArray
+    syn keyword QtType QVariant QVariantAnimation QVariantComparisonHelper QVariantHash QVariantList QVariantMap
+    syn keyword QtType QVector QVector2D QVector3D QVector4D
+    syn keyword QtType QVectorData QVectorIterator QVectorTypedData
+    syn keyword QtType QVideoFrame QVideoSurfaceFormat
+    syn keyword QtType QWMatrix
+    syn keyword QtType QWSCalibratedMouseHandler
+    syn keyword QtType QWSClient
+    syn keyword QtType QWSCursor QWSCursorMap
+    syn keyword QtType QWSDisplay
+    syn keyword QtType QWSEmbedWidget
+    syn keyword QtType QWSEvent
+    syn keyword QtType QWSInputMethod
+    syn keyword QtType QWSInternalWindowInfo
+    syn keyword QtType QWSKeyboardHandler QWSKeyboardHandlerFactoryInterface
+    syn keyword QtType QWSLinuxInputKeyboardHandler
+    syn keyword QtType QWSLinuxInputMouseHandler
+    syn keyword QtType QWSLinuxTPMouseHandler
+    syn keyword QtType QWSManager
+    syn keyword QtType QWSMouseHandler QWSMouseHandlerFactoryInterface
+    syn keyword QtType QWSPcMouseHandler
+    syn keyword QtType QWSPointerCalibrationData
+    syn keyword QtType QWSPropertyManager
+    syn keyword QtType QWSProtocolItem
+    syn keyword QtType QWSQnxKeyboardHandler
+    syn keyword QtType QWSScreenSaver
+    syn keyword QtType QWSServer
+    syn keyword QtType QWSServerSocket
+    syn keyword QtType QWSSocket
+    syn keyword QtType QWSSoundClient
+    syn keyword QtType QWSSoundServer
+    syn keyword QtType QWSSoundServerSocket
+    syn keyword QtType QWSTslibMouseHandler
+    syn keyword QtType QWSTtyKeyboardHandler
+    syn keyword QtType QWSUmKeyboardHandler
+    syn keyword QtType QWSWindow QWSWindowInfo
+    syn keyword QtType QWaitCondition
+    syn keyword QtType QWeakPointer
+    syn keyword QtType QWebDatabase
+    syn keyword QtType QWebElement
+    syn keyword QtType QWebElementCollection
+    syn keyword QtType QWebFrame
+    syn keyword QtType QWebHistory
+    syn keyword QtType QWebHistoryInterface
+    syn keyword QtType QWebHistoryItem
+    syn keyword QtType QWebHitTestResult
+    syn keyword QtType QWebInspector
+    syn keyword QtType QWebPage
+    syn keyword QtType QWebPluginFactory
+    syn keyword QtType QWebSecurityOrigin
+    syn keyword QtType QWebSettings
+    syn keyword QtType QWebView
+    syn keyword QtType QWhatsThis QWhatsThisClickedEvent
+    syn keyword QtType QWheelEvent
+    syn keyword QtType QWidget
+    syn keyword QtType QWidgetAction
+    syn keyword QtType QWidgetData
+    syn keyword QtType QWidgetItem QWidgetItemV2
+    syn keyword QtType QWidgetList
+    syn keyword QtType QWidgetMapper
+    syn keyword QtType QWidgetSet
+    syn keyword QtType QWindowStateChangeEvent
+    syn keyword QtType QWindowsCEStyle
+    syn keyword QtType QWindowsMime
+    syn keyword QtType QWindowsMobileStyle
+    syn keyword QtType QWindowsStyle
+    syn keyword QtType QWindowsVistaStyle
+    syn keyword QtType QWindowsXPStyle
+    syn keyword QtType QWizard QWizardPage
+    syn keyword QtType QWorkspace
+    syn keyword QtType QWriteLocker
+    syn keyword QtType QX11EmbedContainer QX11EmbedWidget QX11Info
+    syn keyword QtType QXmlAttributes
+    syn keyword QtType QXmlContentHandler
+    syn keyword QtType QXmlDTDHandler
+    syn keyword QtType QXmlDeclHandler
+    syn keyword QtType QXmlDefaultHandler
+    syn keyword QtType QXmlEntityResolver
+    syn keyword QtType QXmlErrorHandler
+    syn keyword QtType QXmlFormatter
+    syn keyword QtType QXmlInputSource
+    syn keyword QtType QXmlItem
+    syn keyword QtType QXmlLexicalHandler
+    syn keyword QtType QXmlLocator
+    syn keyword QtType QXmlName
+    syn keyword QtType QXmlNamePool
+    syn keyword QtType QXmlNamespaceSupport
+    syn keyword QtType QXmlNodeModelIndex
+    syn keyword QtType QXmlParseException
+    syn keyword QtType QXmlQuery
+    syn keyword QtType QXmlReader
+    syn keyword QtType QXmlResultItems
+    syn keyword QtType QXmlSchema
+    syn keyword QtType QXmlSchemaValidator
+    syn keyword QtType QXmlSerializer
+    syn keyword QtType QXmlSimpleReader
+    syn keyword QtType QXmlStreamAttribute
+    syn keyword QtType QXmlStreamAttributes
+    syn keyword QtType QXmlStreamEntityDeclaration
+    syn keyword QtType QXmlStreamEntityDeclarations
+    syn keyword QtType QXmlStreamEntityResolver
+    syn keyword QtType QXmlStreamNamespaceDeclaration
+    syn keyword QtType QXmlStreamNamespaceDeclarations
+    syn keyword QtType QXmlStreamNotationDeclaration
+    syn keyword QtType QXmlStreamNotationDeclarations
+    syn keyword QtType QXmlStreamReader
+    syn keyword QtType QXmlStreamStringRef
+    syn keyword QtType QXmlStreamWriter
+    syn keyword QtType Q_INT8 Q_INT16 Q_INT32 Q_INT64
+    syn keyword QtType Q_IPV6ADDR
+    syn keyword QtType Q_LLONG Q_LONG Q_ULLONG Q_ULONG
+    syn keyword QtType Q_PID
+    syn keyword QtType Q_UINT8 Q_UINT16 Q_UINT32 Q_UINT64
+
+    """""""""""""
+    """ Functions
+    """""""""""""
+    syn match QtFunc "SLOT("
+    syn match QtFunc "SIGNAL("
+    syn match QtFunc "qDeleteAll("
+
+    command! -nargs=+ HighlightWord hi link <args>
+
+    HighlightWord QtType Type
+    HighlightWord QtFunc Special
+
+    execute ":source ".expand("<sfile>:h")."/doxygen.vim"
+"endif
+

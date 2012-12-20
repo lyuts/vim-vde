@@ -1,0 +1,79 @@
+
+let g:vde_xdot = expand("~/Downloads/xdot.py")
+
+function! s:GenDOT(dict)
+    let l:dot = []
+    call add(l:dot, "digraph G {")
+    " Generate node definitions
+    for c in keys(a:dict)
+        call add(l:dot, c." [label=\"".c."\" shape=rect];")
+    endfor
+
+    " Declare edges
+    for c in keys(a:dict)
+        for i in keys(a:dict[c])
+            call add(l:dot, a:dict[c][i].name." -> ".c."[")
+            if a:dict[c][i].visibility == 'public'
+                call add(l:dot, "color=green")
+            elseif a:dict[c][i].visibility == 'protected'
+                call add(l:dot, "color=orange")
+            elseif a:dict[c][i].visibility == 'private'
+                call add(l:dot, "color=red")
+            end
+            call add(l:dot, "];")
+        endfor
+    endfor
+
+    call add(l:dot, "}")
+
+    let l:fname = tempname()
+    call writefile(l:dot, l:fname)
+
+    call system("python ".g:vde_xdot." ".l:fname." &")
+endfunction
+
+function! s:util_hier_addClass(dict, name)
+    if !has_key(a:dict, a:name)
+        let a:dict[a:name] = {}
+    endif
+endfunction
+
+function! s:util_hier_addParent(dict, class, parent, visibility)
+    let nextId = len(a:dict[a:class])
+    let a:dict[a:class][nextId] = {}
+    let a:dict[a:class][nextId].visibility = a:visibility
+    let a:dict[a:class][nextId].name = a:parent
+endfunction
+
+function! GenUML()
+    let l:out = split(system('cat '.g:vde_projectIndex." | xargs grep -h \'^class.*[^;]$\' | sed -e 's/^class //' | sed -e 's/::/_/'"), '\n')
+    let l:ancestors = {}
+    for line in l:out
+        let l:parts = split(line, ":")
+        let l:class = substitute(l:parts[0], " ", "", "")
+
+        call s:util_hier_addClass(l:ancestors, l:class)
+
+        if len(l:parts) > 1
+            let l:parent = split(l:parts[1], ",")
+
+            for p in l:parent
+                let l:parentInfo = split(p, ' ')
+                if len(parentInfo) > 1
+                    let l:visibility = split(p, ' ')[0]
+                    let l:name = split(p, ' ')[1]
+                else
+                    let l:visibilty = "private"
+                    let l:name = split(p, ' ')[0]
+                endif
+
+                call s:util_hier_addClass(l:ancestors, l:name)
+                call s:util_hier_addParent(l:ancestors, l:class, l:name, l:visibility)
+            endfor
+        endif
+    endfor
+
+    call s:GenDOT(l:ancestors)
+endfunction
+
+
