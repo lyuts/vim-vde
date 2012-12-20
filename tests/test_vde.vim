@@ -9,9 +9,9 @@ function! s:tc.SETUP()
     let s:sampleProjects[s:sampleProjectName] = {}
     let s:sampleProjects[s:sampleProjectName][self.get('s:PATH')] = '/path1'
     let s:sampleProjects[s:sampleProjectName][self.get('s:VCS')] = 'git'
-    let s:sampleProjects[s:sampleProjectName][self.get('s:Ignore')] = 'IGNORE'
-    let s:sampleProjects[s:sampleProjectName][self.get('s:SkipDir')] = 'SKIPDIR'
-    let s:sampleProjects[s:sampleProjectName][self.get('s:Uses')] = 'USES'
+    let s:sampleProjects[s:sampleProjectName][self.get('s:IGNORE')] = 'IGNORE'
+    let s:sampleProjects[s:sampleProjectName][self.get('s:SKIPDIR')] = 'SKIPDIR'
+    let s:sampleProjects[s:sampleProjectName][self.get('s:USES')] = 'USES'
 endfunction
 
 function! s:tc.TEARDOWN()
@@ -45,19 +45,34 @@ function! s:tc.test_GetParamByFile()
 endfunction
 "}}}
 
-" Tests: GetProjectParam {{{
+" Test Group: GetProjectParam {{{
 function! s:tc.setup_GetProjectParam()
     call self.assert_is_Dictionary(self.get(s:vdeProjDictName))
     call self.set(s:vdeProjDictName, s:sampleProjects)
+    call self.assert_not(empty(self.get(s:vdeProjDictName)), 'No test projects defined!')
+    call self.assert_has_key(s:sampleProjectName, self.get(s:vdeProjDictName))
 endfunction
 
+" Test: Test GetProjectParam. {{{
 function! s:tc.test_GetProjectParam()
-    call self.assert_not(empty(self.get(s:vdeProjDictName)), 'No test projects defined!')
-    let projects = self.get(s:vdeProjDictName)
-    call self.assert_has_key(s:sampleProjectName, self.get(s:vdeProjDictName))
-    let projPath = self.call('s:GetProjectParam', [ s:sampleProjectName, self.get('s:PATH') ])
-    call self.assert_equal('/path1', projPath)
+    let params = [ 's:PATH', 's:VCS', 's:IGNORE', 's:SKIPDIR', 's:USES' ]
+    for param in params
+        let actual = self.call('s:GetProjectParam', [ s:sampleProjectName, self.get(param) ])
+        let expected = self.get(s:vdeProjDictName)[s:sampleProjectName][self.get(param)]
+        call self.assert_equal(expected, actual)
+    endfor
 endfunction
+"}}}
+
+" Test: Test GetProjectParam for invalid VCS parameter. {{{
+function! s:tc.test_GetProjectParam_Invalid_VCS()
+    call self.set(self.get(s:vdeProjDictName)[s:sampleProjectName][self.get('s:VCS')], 'NoSuchVCS')
+    let projVCS = self.call('s:GetProjectParam', [ s:sampleProjectName, self.get('s:VCS') ])
+    call self.assert(empty(projVCS), 'In case unexisting VCS is specified, we should get an empty string!')
+endfunction
+"}}}
+
+
 "}}}
 
 
