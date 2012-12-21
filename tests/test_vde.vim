@@ -35,13 +35,24 @@ endfunction
 
 " Tests: GetProjectForFile {{{
 function! s:tc.test_GetProjectForFile()
-    call self.assert(0, 'Not implemented')
+    call self.set(s:vdeProjDictName, s:sampleProjects)
+    call self.assert_equal(s:sampleProjectName, self.call('s:GetProjectForFile', [ '/path1/main.cpp' ]))
+    call self.assert_equal(s:sampleProjectName, self.call('s:GetProjectForFile', [ '/path1/src/main.cpp' ]))
+    call self.assert_equal(s:sampleProjectName, self.call('s:GetProjectForFile', [ '/path1/src/' ]))
+    call self.assert(empty(self.call('s:GetProjectForFile', [ '/home/user1/src/main.cpp' ])))
 endfunction
 "}}}
 
 " Tests: GetParamByFile {{{
-function! s:tc.test_GetParamByFile()
-    call self.assert(0, 'Not implemented')
+function! s:tc.test_GetProjectParamByFile()
+    call self.set(s:vdeProjDictName, s:sampleProjects)
+    let sampleSrcFile = '/path1/src/main.cpp'
+    let params = [ 's:PATH', 's:VCS', 's:IGNORE', 's:SKIPDIR', 's:USES' ]
+    for param in params
+        let actual = self.call('GetProjectParamByFile', [ sampleSrcFile, self.get(param) ])
+        let expected = self.get(s:vdeProjDictName)[s:sampleProjectName][self.get(param)]
+        call self.assert_equal(expected, actual)
+    endfor
 endfunction
 "}}}
 
@@ -61,14 +72,6 @@ function! s:tc.test_GetProjectParam()
         let expected = self.get(s:vdeProjDictName)[s:sampleProjectName][self.get(param)]
         call self.assert_equal(expected, actual)
     endfor
-endfunction
-"}}}
-
-" Test: Test GetProjectParam for invalid VCS parameter. {{{
-function! s:tc.test_GetProjectParam_Invalid_VCS()
-    call self.set(self.get(s:vdeProjDictName)[s:sampleProjectName][self.get('s:VCS')], 'NoSuchVCS')
-    let projVCS = self.call('s:GetProjectParam', [ s:sampleProjectName, self.get('s:VCS') ])
-    call self.assert(empty(projVCS), 'In case unexisting VCS is specified, we should get an empty string!')
 endfunction
 "}}}
 
