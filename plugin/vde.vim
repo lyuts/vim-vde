@@ -19,6 +19,7 @@ call DetectOption("g:vde_projectFile", expand("$HOME")."/.vim_projects")
 " Set the default file that contains a list of project files. In order to set a custom
 " project index file, set the corresponding value in .vimrc
 call DetectOption("g:vde_projectIndex", "tags.files")
+call DetectOption("g:vde_projectTags", "vde.tags")
 "if !exists("g:vde_projectIndex")
 "    let g:vde_projectIndex = "tags.files"
 "endif "}}}
@@ -28,7 +29,7 @@ if !exists("g:vde_projectIgnoreList")
     let g:vde_projectIgnoreList = [ "*.class", "*.dll", "*.so", "*~" ]
     let g:vde_projectIgnoreList += [ "*.a", "*.o" , "*.exe", "*.bin" ]
     let g:vde_projectIgnoreList += [ "*.png", "*.jpg" ]
-    let g:vde_projectIgnoreList += [ "ncscope*", "cscope*", "tags.files", "tags" ]
+    let g:vde_projectIgnoreList += [ "ncscope*", "cscope*", "tags.files", "tags" , g:vde_projectTags ]
 endif "}}}
 
 " Variable: g:vde_projectSkipDirList {{{
@@ -513,15 +514,15 @@ function! ReTag(code)
 
     if l:projectPath != ""
         if a:code == "single-file"
-            " retag the file to l:projectPath/tags
+            " retag the file to l:projectPath/g:vde_projectTags
             if g:vde_useGtags == 1
                 execute "silent! :!".g:vde_gtagsCmd." --single-update ".expand("%")
             endif
 
-            execute "silent! :!".g:vde_ctagsCmd." -R -a --sort=no --c++-kinds=+p --fields=+iaS --extra=+q -f ".l:projectPath."/tags ".expand("%:p")
+            execute "silent! :!".g:vde_ctagsCmd." -R -a --sort=no --c++-kinds=+p --fields=+iaS --extra=+q -f ".l:projectPath."/".g:vde_projectTags." ".expand("%:p")
         elseif a:code == "load"
             let l:paths = []
-            call add(l:paths, l:projectPath."/tags")
+            call add(l:paths, l:projectPath."/".g:vde_projectTags)
 
             let l:uses = split(s:GetProjectParam(l:projectName, s:USES), ',')
 
@@ -530,7 +531,7 @@ function! ReTag(code)
             for l:dep in l:uses
                 " if a dependency is a project name
                 if has_key(s:projects, l:dep)
-                    call add(l:paths, s:GetProjectParam(l:dep, s:PATH)."/tags")
+                    call add(l:paths, s:GetProjectParam(l:dep, s:PATH)."/".g:vde_projectTags)
                 " else if a dependency is a path to tags file
                 elseif getftype(expand(l:dep)) == "file"
                     call add(l:paths, expand(l:dep))
@@ -554,7 +555,7 @@ function! ReTag(code)
             if g:vde_useGtags == 1
                 execute ":!".g:vde_gtagsCmd." -f ".l:projectPath."/".g:vde_projectIndex." -I ."
             endif
-            execute ":!".g:vde_ctagsCmd." -L ".l:projectPath."/".g:vde_projectIndex." -V --c++-kinds=+p --fields=+iaS --extra=+q"
+            execute ":!".g:vde_ctagsCmd." -f ".l:projectPath."/".g:vde_projectTags." -L ".l:projectPath."/".g:vde_projectIndex." -V --c++-kinds=+p --fields=+iaS --extra=+q"
             " \todo Maybe retag deps ?
         endif
 "        silent call s:CscopeSetup()
@@ -606,6 +607,13 @@ endfunction
 
 function! VDEOnBufEnter()
 "    let b:repoInfo = { 'branch': s:VCSCurrentBranch(), 'modified': s:VCSHasLocalChanges() }
+endfunction
+
+function! VDEOnCursorHold()
+    let symbol = expand("<cword>")
+    if symbol == ""
+        finish
+    endif
 endfunction
 
 " Function: VDERepoInfoStr() {{{
@@ -679,6 +687,7 @@ if has("autocmd")
         au BufWritePost * if &modifiable | silent call ReTag("single-file") | redraw!
         "au BufNew * if &modifiable | silent call ReTag("load") | redraw!
         au BufEnter * if &modifiable | call VDEOnBufEnter()
+        au CursorHold * if &modifiable | call VDEOnCursorHold()
 "        au BufEnter * if &modifiable | silent call VDEOnBufEnter()
         au BufEnter * if &modifiable | silent call ReTag("load") | redraw!
     augroup END
