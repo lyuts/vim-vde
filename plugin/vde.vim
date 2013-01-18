@@ -621,9 +621,9 @@ endfunction
 
 function! VDEOnCursorHold()
     let symbol = expand("<cword>")
-    if symbol == ""
-        finish
-    endif
+"    if symbol == ""
+"        finish
+"    endif
 endfunction
 
 " Function: VDERepoInfoStr() {{{
