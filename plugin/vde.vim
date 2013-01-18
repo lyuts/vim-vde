@@ -140,8 +140,8 @@ let s:P4 = "p4"
 "}}}
 
 " COMMANDS: {{{
-command! -bang -nargs=? VDEInit call s:InitProject(expand("<bang>"))
-"command! -bang -nargs=? VDEInit call s:InitProject(expand("<bang>"), <f-args>)
+"command! -bang -nargs=? VDEInit call s:InitProject(expand("<bang>"))
+command! -bang -nargs=? VDEInit call s:InitProject(expand("<bang>"), '<f-args>')
 " Version control commands
 command! Blame call s:VCSBlame()
 command! Diff call VCSDiff(expand("%:p"), "", "")
@@ -193,8 +193,8 @@ endfunction "}}}
 "             either "!" or an empty string. When expanded to "!" we know that we have to
 "             do a full reinit of our project
 "
-function! s:InitProject(bang)
-"function! s:InitProject(bang, desiredProjectName)
+"function! s:InitProject(bang)
+function! s:InitProject(bang, desiredProjectName)
     let l:full = 0
     if a:bang == "!"
         let l:full = 1
@@ -208,14 +208,23 @@ function! s:InitProject(bang)
         let l:projectPath = expand("%:p:h")
     endif
 
-    let l:projectName = s:GetProjectForFile(expand("%:p:h"))
-    if l:projectName == ""
+    if a:desiredProjectName == ""
+        let l:projectName = s:GetProjectForFile(expand("%:p:h"))
+        if l:projectName == ""
 "        if l:full == 1 && a:desiredProjectName != ""
 "            let l:projectName = a:desiredProjectName
 "        else
 "            Info("Using autodetected project name.")
             let l:projectName = expand("%:p:h:t")
 "        endif
+        endif
+    else
+        let l:projectName = a:desiredProjectName
+        " if we happen to override the project name, then remove old record
+        let l:oldProjectName = s:GetProjectForFile(expand("%:p:h"))
+        if l:oldProjectName != ""
+            call remove(s:projects, l:oldProjectName)
+        endif
     endif
 
 
