@@ -33,9 +33,19 @@ function! s:tc.test_Constants()
 endfunction
 "}}}
 
+" Tests: RemoveStaleProjects {{{
+function! s:tc.test_RemoveStaleProjects()
+    let sampleProjectsCount = len(s:sampleProjects)
+    call self.set(s:vdeProjDictName, deepcopy(s:sampleProjects))
+    call self.call('s:RemoveStaleProjects', [])
+    call self.assert_equal(0, len(self.get('s:projects')))
+    call self.assert_equal(sampleProjectsCount, len(s:sampleProjects))
+endfunction
+"}}}
+
 " Tests: GetProjectForFile {{{
 function! s:tc.test_GetProjectForFile()
-    call self.set(s:vdeProjDictName, s:sampleProjects)
+    call self.set(s:vdeProjDictName, deepcopy(s:sampleProjects))
     call self.assert_equal(s:sampleProjectName, self.call('s:GetProjectForFile', [ '/path1/main.cpp' ]))
     call self.assert_equal(s:sampleProjectName, self.call('s:GetProjectForFile', [ '/path1/src/main.cpp' ]))
     call self.assert_equal(s:sampleProjectName, self.call('s:GetProjectForFile', [ '/path1/src/' ]))
@@ -45,7 +55,7 @@ endfunction
 
 " Tests: GetParamByFile {{{
 function! s:tc.test_GetProjectParamByFile()
-    call self.set(s:vdeProjDictName, s:sampleProjects)
+    call self.set(s:vdeProjDictName, deepcopy(s:sampleProjects))
     let sampleSrcFile = '/path1/src/main.cpp'
     let params = [ 's:PATH', 's:VCS', 's:IGNORE', 's:SKIPDIR', 's:USES' ]
     for param in params
@@ -59,7 +69,7 @@ endfunction
 " Test Group: GetProjectParam {{{
 function! s:tc.setup_GetProjectParam()
     call self.assert_is_Dictionary(self.get(s:vdeProjDictName))
-    call self.set(s:vdeProjDictName, s:sampleProjects)
+    call self.set(s:vdeProjDictName, deepcopy(s:sampleProjects))
     call self.assert_not(empty(self.get(s:vdeProjDictName)), 'No test projects defined!')
     call self.assert_has_key(s:sampleProjectName, self.get(s:vdeProjDictName))
 endfunction

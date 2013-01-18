@@ -254,6 +254,16 @@ function! s:InitProject(bang)
     call ReTag("all")
 endfunction "}}}
 
+" Function: s:RemoveStaleProjects() [PRIVATE] {{{
+"
+function s:RemoveStaleProjects()
+    for l:key in keys(s:projects)
+        if getftype(s:projects[l:key][s:PATH]) != "dir"
+            call remove(s:projects, l:key)
+        endif
+    endfor
+endfunction "}}}
+
 " Function: s:GetProjectForFile(filePath) [PRIVATE] {{{
 "
 """ Returns a name of the project containing the specified file
