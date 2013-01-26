@@ -618,7 +618,12 @@ function! VDEGrepProjectFiles(pattern, caseSensitive)
         let grepFalgs = "-i"
     endif
 
-    let cmd = "cat ".root."/".g:vde_projectIndex." | xargs -l grep ".grepFlags." -HIn \"".a:pattern."\""
+    let xargsFlags = ""
+    if g:OS != "FreeBSD"
+        let xargsFlags = "-l"
+    endif
+
+    let cmd = "cat ".root."/".g:vde_projectIndex." | xargs ".xargsFlags." grep ".grepFlags." -HIn \"".a:pattern."\""
     let cmd .= " | sed -e 's#^".root."##g'"
 
     call ExecSearch(cmd, "", "")
