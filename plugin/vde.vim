@@ -18,7 +18,7 @@ call DetectOption("g:vde_projectFile", expand("$HOME")."/.vim_projects")
 " Variable: g:vde_projectIndex {{{
 " Set the default file that contains a list of project files. In order to set a custom
 " project index file, set the corresponding value in .vimrc
-call DetectOption("g:vde_projectIndex", "tags.files")
+call DetectOption("g:vde_projectIndex", "vde.index")
 call DetectOption("g:vde_projectTags", "vde.tags")
 "if !exists("g:vde_projectIndex")
 "    let g:vde_projectIndex = "tags.files"
@@ -29,7 +29,7 @@ if !exists("g:vde_projectIgnoreList")
     let g:vde_projectIgnoreList = [ "*.class", "*.dll", "*.so", "*~" ]
     let g:vde_projectIgnoreList += [ "*.a", "*.o" , "*.exe", "*.bin" ]
     let g:vde_projectIgnoreList += [ "*.png", "*.jpg" ]
-    let g:vde_projectIgnoreList += [ "ncscope*", "cscope*", "tags.files", "tags" , g:vde_projectTags ]
+    let g:vde_projectIgnoreList += [ "ncscope*", "cscope*", "tags" , g:vde_projectTags, g:vde_projectIndex ]
 endif "}}}
 
 " Variable: g:vde_projectSkipDirList {{{
