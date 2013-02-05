@@ -488,7 +488,7 @@ function! s:BuildProjectIndex(projectName)
 "    if getftype(g:vde_projectIndex) == ""
         "execute g:vde_findCmd." ".l:projectPath." -type f | sed -e 's/[() $]/\\\\\\0/g' > ".l:projectPath."/".g:vde_projectIndex
         "let l:cmd = g:vde_findCmd." ".l:projectPath." -type f ".l:ignore_opt." | sed -e 's/".escape(l:projectPath, "/")."/./g' | sed -e 's/^.*$/\\\"\\0\\\"/g' > ".l:projectPath."/".g:vde_projectIndex
-        let l:cmd = g:vde_findCmd." ".l:projectPath." -type f ".l:ignore_opt." | sed -e 's/".escape(l:projectPath, "/")."/./g' | sed -e 's/[() $]/\\\\\\0/g' > ".l:projectPath."/".g:vde_projectIndex
+        let l:cmd = g:vde_findCmd." ".l:projectPath." -follow -type f ".l:ignore_opt." | sed -e 's/".escape(l:projectPath, "/")."/./g' | sed -e 's/[() $]/\\\\\\0/g' > ".l:projectPath."/".g:vde_projectIndex
         call system(l:cmd)
 "    endif
 
