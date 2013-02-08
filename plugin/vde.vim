@@ -615,7 +615,7 @@ function! VDEGrepProjectFiles(pattern, caseSensitive)
     if a:caseSensitive == 1
         let grepFlags = ""
     else
-        let grepFalgs = "-i"
+        let grepFlags = "-i"
     endif
 
     let xargsFlags = ""
