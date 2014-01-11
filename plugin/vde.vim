@@ -574,7 +574,7 @@ function! ReTag(code)
             if g:vde_useGtags == 1
                 execute ":!".g:vde_gtagsCmd." -f ".l:projectPath."/".g:vde_projectIndex." -I ."
             endif
-            execute ":!".g:vde_ctagsCmd." -f ".l:projectPath."/".g:vde_projectTags." -L ".l:projectPath."/".g:vde_projectIndex." -V --c++-kinds=+p --fields=+iaS --extra=+q"
+            execute ":!".g:vde_ctagsCmd." --sort=yes -f ".l:projectPath."/".g:vde_projectTags." -L ".l:projectPath."/".g:vde_projectIndex." -V --c++-kinds=+p --fields=+iaS --extra=+q"
             " \todo Maybe retag deps ?
         endif
 "        silent call s:CscopeSetup()
@@ -606,7 +606,12 @@ endfunction "}}}
 
 " Function: VDEGrepProjectFiles()
 " Searches for specified patterns in project files, excluding binary files.
-function! VDEGrepProjectFiles(pattern, caseSensitive)
+function! VDEGrepProjectFiles(caseSensitive)
+    let pattern = input("Search for => ", expand("<cword>"))
+    if patter == ""
+        return
+    endif
+
     let root = GetProjectParamByFile(expand('%:p'), 'Path')
     if root == ""
         let root = getcwd()
@@ -623,7 +628,7 @@ function! VDEGrepProjectFiles(pattern, caseSensitive)
         let xargsFlags = "-l"
     endif
 
-    let cmd = "cat ".root."/".g:vde_projectIndex." | xargs ".xargsFlags." grep ".grepFlags." -HIn \"".a:pattern."\""
+    let cmd = "cat ".root."/".g:vde_projectIndex." | xargs ".xargsFlags." grep ".grepFlags." -HIn \"".pattern."\""
     let cmd .= " | sed -e 's#^".root."##g'"
 
     call ExecSearch(cmd, "", "")
