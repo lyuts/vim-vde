@@ -124,6 +124,7 @@ endif "}}}
 " SECTION: Local Variables: {{{
 " Variable: s:projects {{{
 let s:projects = {}
+let s:previousBuffer = ''
 "}}}
 "}}}
 
@@ -136,6 +137,7 @@ let s:USES = "Uses"
 let s:GIT = "git"
 let s:SVN = "svn"
 let s:P4 = "p4"
+let s:PROJECTVIMRC = "ProjectVimRC"
 "let s:TAGSDIR = "TagsDir"
 "}}}
 
@@ -608,7 +610,7 @@ endfunction "}}}
 " Searches for specified patterns in project files, excluding binary files.
 function! VDEGrepProjectFiles(caseSensitive)
     let pattern = input("Search for => ", expand("<cword>"))
-    if patter == ""
+    if pattern == ""
         return
     endif
 
@@ -634,8 +636,30 @@ function! VDEGrepProjectFiles(caseSensitive)
     call ExecSearch(cmd, "", "")
 endfunction
 
+function! VDEOnBufLeave()
+    let s:previousBuffer = expand("%:p")
+endfunction
+
 function! VDEOnBufEnter()
 "    let b:repoInfo = { 'branch': s:VCSCurrentBranch(), 'modified': s:VCSHasLocalChanges() }
+    let l:previousProjectName = s:GetProjectForFile(s:previousBuffer)
+    let l:projectName = s:GetProjectForFile(expand("%:p"))
+    if l:projectName != "" && l:previousProjectName != l:projectName
+        let l:projectVimRc = ''
+        try
+            let l:projectVimRc = s:GetProjectParam(l:projectName, s:PROJECTVIMRC)
+        catch
+            " project doesn't have a custom rc file specified
+        endtry
+
+        if l:projectVimRc != ""
+            if getftype(l:projectVimRc) != "file"
+                call Error("Can't find custom vimrc at ".l:projectVimRc)
+            else
+                exec 'source '.l:projectVimRc
+            endif
+        endif
+    endif
 endfunction
 
 function! VDEOnCursorHold()
@@ -715,6 +739,7 @@ if has("autocmd")
         au!
         au BufWritePost * if &modifiable | silent call ReTag("single-file") | redraw!
         "au BufNew * if &modifiable | silent call ReTag("load") | redraw!
+        au BufLeave * if &modifiable | call VDEOnBufLeave()
         au BufEnter * if &modifiable | call VDEOnBufEnter()
         au CursorHold * if &modifiable | call VDEOnCursorHold()
 "        au BufEnter * if &modifiable | silent call VDEOnBufEnter()
