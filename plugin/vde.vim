@@ -11,18 +11,14 @@ let g:vdePluginLoaded = 1
 " Set the default projects description file. In order to set a custom project definition
 " file, set the corresponding value in .vimrc
 call DetectOption("g:vde_projectFile", expand("$HOME")."/.vim_projects")
-"if !exists("g:vde_projectFile")
-"    let g:vde_projectFile = expand("$HOME")."/.vim_projects"
-"endif "}}}
+"}}}
 
 " Variable: g:vde_projectIndex {{{
 " Set the default file that contains a list of project files. In order to set a custom
 " project index file, set the corresponding value in .vimrc
 call DetectOption("g:vde_projectIndex", "vde.index")
 call DetectOption("g:vde_projectTags", "vde.tags")
-"if !exists("g:vde_projectIndex")
-"    let g:vde_projectIndex = "tags.files"
-"endif "}}}
+"}}}
 
 " Variable: g:vde_projectIgnoreList {{{
 if !exists("g:vde_projectIgnoreList")
